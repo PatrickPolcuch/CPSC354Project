@@ -9,3 +9,5 @@ Our group aims to make a language that specializes in music creation and analysi
 
 
 Our project will use the prinicples of parsing, interpretation and compilation. Our language will parse the sound blocks and the formatting blocks in order to construct music. Once the blocks have been parsed, we will interpret the sounds and compile them into a sound file that can be played back.
+
+JustinLee27.github.io/index.html
