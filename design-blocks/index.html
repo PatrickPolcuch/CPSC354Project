@@ -1,74 +1,55 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Blockly Music</title>
+  <head>
+    <meta charset="utf-8">
+    <title>Music Composition DSL</title>
     <script src="https://unpkg.com/blockly/blockly.min.js"></script>
-    <script src="custom_blocks.js"></script>
-    <link rel="stylesheet" type="text/css" href="styles.css">
-</head>
-<body>
-    <div class="row">
-        <div id="blocklyDiv" class="full-width"></div>
-        <xml id="toolbox" style="display: none">
-            
-        </xml>
-    </div>
-    <div class="row button-row">
-        <button onclick="generateCode()">Generate JavaScript</button>
-        <button onclick="runCode()">Run JavaScript</button>
-        <button onclick="saveBlocks()">Save Blocks</button>
-        <button onclick="loadBlocks()">Load Blocks</button>
-        <input type="file" id="loadInput" style="display: none;" onchange="loadBlocksFile(event)">
-    </div>
-    <div class="row">
-        <div id="codeDiv" class="half-width"></div>
-        <div id="outputDiv" class="half-width"></div>
-    </div>
+    <script src="https://unpkg.com/blockly/blocks.min.js"></script>
+    <script src="https://unpkg.com/blockly/javascript.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/blockly/blockly.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/blockly/blocks.min.css" />
+  </head>
+  <body>
+    <h1>Music Composition DSL</h1>
+    <div id="blocklyDiv" style="height: 480px; width: 600px;"></div>
+    <xml id="toolbox" style="display: none">
+      <!-- Define your musical elements as Blockly blocks here -->
+      <category name="Notes">
+        <block type="note">
+          <field name="pitch">C</field>
+          <field name="duration">quarter</field>
+        </block>
+        <block type="rest">
+          <field name="duration">quarter</field>
+        </block>
+      </category>
+      
+      <category name="Chords">
+        <block type="chord">
+          <field name="root">C</field>
+          <field name="quality">major</field>
+          <field name="duration">quarter</field>
+        </block>
+      </category>
+      
+      <category name="Tempo">
+        <block type="tempo">
+          <field name="value">120</field>
+        </block>
+      </category>
+    </xml>
     <script>
-        var workspace = Blockly.inject('blocklyDiv', {
-            toolbox: document.getElementById('toolbox'),
-            scrollbars: true
-        });
-
-        function generateCode() {
-            var code = Blockly.JavaScript.workspaceToCode(workspace);
-            document.getElementById('codeDiv').innerText = code;
+      var workspace = Blockly.inject('blocklyDiv', {
+        toolbox: document.getElementById('toolbox')
+      });
+      Blockly.bindEvent_(workspace.getCanvas(), 'mousedown', null, function(e) {
+        if (e.button == 0) {
+          var target = e.target || e.srcElement;
+          if (target.nodeName == 'svg' || target.parentNode.nodeName == 'svg') {
+            workspace.startDrag(e);
+          }
         }
-
-        function runCode() {
-            var code = Blockly.JavaScript.workspaceToCode(workspace);
-            try {
-                var output = eval(code);
-                document.getElementById('outputDiv').innerText = output;
-            } catch (e) {
-                document.getElementById('outputDiv').innerText = 'Error: ' + e;
-            }
-        }
-
-        function saveBlocks() {
-            var xml = Blockly.Xml.workspaceToDom(workspace);
-            var xmlText = Blockly.Xml.domToPrettyText(xml);
-            var blob = new Blob([xmlText], {type: 'text/xml'});
-            var a = document.createElement('a');
-            a.download = 'blocks.xml';
-            a.href = URL.createObjectURL(blob);
-            a.click();
-        }
-
-        function loadBlocks() {
-            document.getElementById('loadInput').click();
-        }
-
-        function loadBlocksFile(event) {
-            var file = event.target.files[0];
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                var xml = Blockly.utils.xml.textToDom(e.target.result);
-                Blockly.Xml.appendDomToWorkspace(xml, workspace);
-            };
-            reader.readAsText(file);
-        }
-
+      });
     </script>
-</body>
+  </body>
 </html>
