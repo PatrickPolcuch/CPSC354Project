@@ -1,55 +1,38 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
     <title>Music Composition DSL</title>
     <script src="https://unpkg.com/blockly/blockly.min.js"></script>
-    <script src="https://unpkg.com/blockly/blocks.min.js"></script>
-    <script src="https://unpkg.com/blockly/javascript.min.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/blockly/blockly.min.css" />
-    <link rel="stylesheet" href="https://unpkg.com/blockly/blocks.min.css" />
+    <script src="custom_blocks.js"></script>
+    <link rel="stylesheet" type="text/css" href="styles.css">
   </head>
   <body>
-    <h1>Music Composition DSL</h1>
-    <div id="blocklyDiv" style="height: 480px; width: 600px;"></div>
-    <xml id="toolbox" style="display: none">
-      <!-- Define your musical elements as Blockly blocks here -->
-      <category name="Notes">
-        <block type="note">
-          <field name="pitch">C</field>
-          <field name="duration">quarter</field>
-        </block>
-        <block type="rest">
-          <field name="duration">quarter</field>
-        </block>
-      </category>
-      
-      <category name="Chords">
-        <block type="chord">
-          <field name="root">C</field>
-          <field name="quality">major</field>
-          <field name="duration">quarter</field>
-        </block>
-      </category>
-      
-      <category name="Tempo">
-        <block type="tempo">
-          <field name="value">120</field>
-        </block>
-      </category>
-    </xml>
+    <div class="row">
+        <div id="blocklyDiv" class="full-width"></div>
+        <xml id="toolbox" style="display: none">
+            <block type="measure"></block>
+            <block type="note"></block>
+            <block type="song"></block>
+        </xml>
+    </div>
+    <div class="row button-row">
+        <button onclick="generateCode()">Generate JavaScript</button>
+        <input type="file" id="loadInput" style="display: none;" onchange="loadBlocksFile(event)">
+    </div>
+    <div class="row">
+        <div id="codeDiv" class="half-width"></div>
+        <div id="outputDiv" class="half-width"></div>
+    </div>
     <script>
-      var workspace = Blockly.inject('blocklyDiv', {
-        toolbox: document.getElementById('toolbox')
-      });
-      Blockly.bindEvent_(workspace.getCanvas(), 'mousedown', null, function(e) {
-        if (e.button == 0) {
-          var target = e.target || e.srcElement;
-          if (target.nodeName == 'svg' || target.parentNode.nodeName == 'svg') {
-            workspace.startDrag(e);
-          }
+        var workspace = Blockly.inject('blocklyDiv', {
+            toolbox: document.getElementById('toolbox'),
+            scrollbars: true
+        });
+
+        function generateCode() {
+            var code = Blockly.JavaScript.workspaceToCode(workspace);
+            document.getElementById('codeDiv').textContent = code;
         }
-      });
     </script>
   </body>
 </html>
