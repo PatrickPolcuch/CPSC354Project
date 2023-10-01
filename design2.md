@@ -1,4 +1,19 @@
 Measure block: The measure block will contain two drop down fields and a space for note blocks to fit in. The drop down fields will be for the key signature and the time signature. The key signatures will be one of the 12 standard keys. These will be key objects. These key objects will have a function called evaluateNote, which takes a String that represents a note, and return the corrisponding note in the key signature (if evaluateNote is called on the key object for the key of F, and passes in the note B, the function will return the note Bb).
+The keys are as followed:
+* C - No sharps or flats
+* G - F#
+* D - F#, C#
+* A - F#, C#, G#
+* E - F#, C#, G#, D#
+* B - F#, C#, G#, D#, A#
+* F# - F#, C#, G#, D#, A#, E#
+* Gb - Bb, Eb, Ab, Db, Gb, Cb
+* Db - Bb, Eb, Ab, Db, Gb
+* Ab - Bb, Eb, Ab, Db
+* Eb - Bb, Eb, Ab
+* Bb - Bb, Eb
+* F - Bb
+
 The measure block will evaluate the keysignature before the accidental. 
 
 ```
@@ -24,7 +39,7 @@ Note block: The note block will have 5 drop down values to determine the sound a
 * duration (float)- how long the note will be played. The option for this one should be a text entry box that accepts decimal values
 * beat (float)- when the note will be played. The option for this one should be a text entry box that accepts decimal values
 
-Song block: This block will be what the measure blocks will be placed in. It will be responsible for: * Tempo * Instrument used * Starting and ending the file * any other responsbilities not covered by the note and measure blocks
+Song block: This block will be what the measure blocks will be placed in. It will be responsible for: * Tempo * Instrument used * Starting and ending the file * any other responsbilities not covered by the note and measure blocks. For now the only thing we will do is have the song block contain measure blocks.
 
 
 
