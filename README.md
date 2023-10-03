@@ -1,7 +1,7 @@
-# CPSC354Project
+# Language for Music (LFM)
 Group: Christopher Isidro, Spencer Lafferty, Justin Lee, Patrick Polcuch
 
-Title: Language for Music
+https://patrickpolcuch.github.io/CPSC354Project/design-blocks/
 
 Project Description: 
 
