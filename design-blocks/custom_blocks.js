@@ -35,7 +35,8 @@ Blockly.Blocks['measure'] = {
         .setCheck("note")
         .appendField("notes");
     this.setInputsInline(false);
-    this.setOutput(true, "String");
+    this.setPreviousStatement(true, "measure");
+    this.setNextStatement(true, "measure");
     this.setColour(130);
     this.setTooltip("A measure with a specified key signature, time signature, and notes");
     this.setHelpUrl("");
@@ -83,10 +84,13 @@ Blockly.Blocks['note'] = {
     this.appendDummyInput()
         .appendField("Beat:")
         .appendField(new Blockly.FieldTextInput("1.0"), "beat");
-    this.setOutput(true, "Note");
     this.setColour(230);
     this.setTooltip("Create a musical note.");
     this.setHelpUrl("");
+    this.setInputsInline(false);
+    // Add socket to note block
+    this.setPreviousStatement(true, "note");
+    this.setNextStatement(true, "note");
   }
 };
 
@@ -102,9 +106,9 @@ Blockly.JavaScript['note'] = function(block) {
 
 Blockly.Blocks['song'] = {
   init: function() {
-    this.appendValueInput("MEASURES")
-        .setCheck("Array")
-        .appendField("song with measures");
+    this.appendStatementInput("MEASURES")
+        .setCheck("measure")
+        .appendField("song");
     this.appendDummyInput()
         .appendField("tempo")
         .appendField(new Blockly.FieldNumber(120, 1, 300), "TEMPO");
@@ -118,7 +122,6 @@ Blockly.Blocks['song'] = {
           ["drums", "drums"]
         ]), "INSTRUMENT");
     this.setInputsInline(false);
-    this.setOutput(true, "String");
     this.setColour(0);
     this.setTooltip("A song with a specified sequence of measures, tempo, and instrument");
     this.setHelpUrl("");
