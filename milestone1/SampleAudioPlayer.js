@@ -35,12 +35,13 @@ const melody = [
   { note: "G5", duration: 0.5, startTime: 0.5 },
 ];
 
-// Call playMelody to play the melody
-playMelody(melody).then(() => {
-  console.log("Playback completed.");
-});
-
-
+const playButton = document.getElementById("playButton");
+  playButton.addEventListener("click", function () {
+    playMelody(melody).then(() => {
+      console.log("Playback completed.");
+    });
+  });
+  
 //define the frequencies of the notes
 //we might want to include Fb, E#, B#, and Cb in the future just to be more exhaustive
 const noteFrequencies = {
