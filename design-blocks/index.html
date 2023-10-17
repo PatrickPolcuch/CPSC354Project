@@ -18,6 +18,7 @@
     </div>
     <div class="row button-row">
         <button onclick="generateCode()">Generate JavaScript</button>
+        <button id="saveButton">Save to File</button>
         <input type="file" id="loadInput" style="display: none;" onchange="loadBlocksFile(event)">
     </div>
     <div class="row">
@@ -34,6 +35,19 @@
             var code = Blockly.JavaScript.workspaceToCode(workspace);
             document.getElementById('codeDiv').textContent = code;
         }
+
+        document.getElementById("saveButton").addEventListener("click", function() {
+        var code = document.getElementById("codeDiv").textContent;
+        var blob = new Blob([code], {type: "application/json"});
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement("a");
+        a.href = url;
+        a.download = "song.json";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        });
     </script>
   </body>
 </html>

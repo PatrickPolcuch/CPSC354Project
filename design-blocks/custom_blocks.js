@@ -1,7 +1,7 @@
 Blockly.Blocks['measure'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("measure");
+        .appendField("Measure");
     this.appendDummyInput()
         .appendField("key signature")
         .appendField(new Blockly.FieldDropdown([
@@ -51,20 +51,6 @@ function getNoteCode(note) {
   return code;
 }
 
-Blockly.JavaScript['measure'] = function(block) {
-  var key = block.getFieldValue('KEY');
-  var time = block.getFieldValue('TIME');
-  var notes = Blockly.JavaScript.statementToCode(block, 'NOTES');
-  var noteCodes = [];
-  var noteBlock = block.getInputTargetBlock('NOTES');
-  while (noteBlock) {
-    noteCodes.push(getNoteCode(noteBlock));
-    noteBlock = noteBlock.getNextBlock();
-  }
-  var code = 'measure(' + key + ', ' + time + ', [' + noteCodes.join(', ') + ']);\n';
-  return code;
-};
-
 Blockly.Blocks['note'] = {
   init: function() {
     this.appendDummyInput()
@@ -94,21 +80,11 @@ Blockly.Blocks['note'] = {
   }
 };
 
-Blockly.JavaScript['note'] = function(block) {
-  var noteName = block.getFieldValue('noteName');
-  var octave = block.getFieldValue('octave');
-  var accidental = block.getFieldValue('accidental');
-  var duration = block.getFieldValue('duration');
-  var beat = block.getFieldValue('beat');
-  var code = 'note(' + noteName + octave + accidental + ', ' + duration + ', ' + beat + ')';
-  return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
-};
-
 Blockly.Blocks['song'] = {
   init: function() {
     this.appendStatementInput("MEASURES")
         .setCheck("measure")
-        .appendField("song");
+        .appendField("Song");
     this.appendDummyInput()
         .appendField("tempo")
         .appendField(new Blockly.FieldNumber(120, 1, 300), "TEMPO");
@@ -129,13 +105,47 @@ Blockly.Blocks['song'] = {
 };
 
 Blockly.JavaScript['song'] = function(block) {
-  var measures = Blockly.JavaScript.valueToCode(block, 'MEASURES', Blockly.JavaScript.ORDER_ATOMIC);
+  var measures = Blockly.JavaScript.statementToCode(block, 'MEASURES');
   var tempo = block.getFieldValue('TEMPO');
   var instrument = block.getFieldValue('INSTRUMENT');
-  var code = 'tempo = ' + tempo + ';\n';
-  code += 'instrument = "' + instrument + '";\n';
-  code += 'startSong(instrument);\n';
-  code += measures;
-  code += 'endSong();\n';
+  var json = {
+    "type": "song",
+    "tempo": tempo,
+    "instrument": instrument,
+    "measures": JSON.parse(measures)
+  };
+  var code = JSON.stringify(json, null, 2);
+  return code;
+};
+
+Blockly.JavaScript['measure'] = function(block) {
+  var key = block.getFieldValue('KEY');
+  var time = block.getFieldValue('TIME');
+  var notes = Blockly.JavaScript.statementToCode(block, 'NOTES');
+  var json = {
+    "type": "measure",
+    "key": key,
+    "time": time,
+    "notes": JSON.parse(notes)
+  };
+  var code = JSON.stringify(json, null, 2);
+  return code;
+};
+
+Blockly.JavaScript['note'] = function(block) {
+  var noteName = block.getFieldValue('noteName');
+  var octave = block.getFieldValue('octave');
+  var accidental = block.getFieldValue('accidental');
+  var duration = block.getFieldValue('duration');
+  var beat = block.getFieldValue('beat');
+  var json = {
+    "type": "note",
+    "noteName": noteName,
+    "octave": octave,
+    "accidental": accidental,
+    "duration": duration,
+    "beat": beat
+  };
+  var code = JSON.stringify(json, null, 2);
   return code;
 };
