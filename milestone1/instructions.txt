@@ -1,0 +1,5 @@
+To open the test page:
+1. navigate to the milestone1 folder in your terminal
+2. run "python -m http.server"
+3. open a browser and go to http://localhost:8000/
+4. click on test.html
