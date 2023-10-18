@@ -1,12 +1,29 @@
 //Create Audio context
 const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+const c3 = new Audio('PianoNotes/C.mp3');
+const e3 = new Audio('PianoNotes/E.mp3');
+const g3 = new Audio('PianoNotes/G.mp3');
 
 function playNote(note, durationInSeconds, startTime) {
   const oscillator = audioContext.createOscillator();
-  oscillator.type = "sine";//we will need to make this to sound like the instrument of our choice
+  oscillator.type = "triangle";//we will need to make this to sound like the instrument of our choice
   oscillator.frequency.setValueAtTime(noteFrequencies[note], audioContext.currentTime + startTime);
+
+  //ADSR envelope
+  const now = audioContext.currentTime;
+  const attackTime = 1; //attack time in seconds 
+  const decayTime = 1; //decay time in seconds
+  const sustainLevel = 1; //Sustain level (0 to 1)
+  const releaseTime = 1; //release time in seconds
+
+  
+
   oscillator.connect(audioContext.destination);
   oscillator.start(audioContext.currentTime + startTime);
+
+  oscillator.frequency.exponentialRampToValueAtTime(noteFrequencies[note], now + startTime + attackTime);
+
+  oscillator.frequency.exponentialRampToValueAtTime(noteFrequencies[note] * sustainLevel, now + startTime + attackTime + decayTime);
   oscillator.stop(audioContext.currentTime + startTime + durationInSeconds);
 }
 
@@ -27,19 +44,30 @@ function playMelody(melody) {//accepts a melody and plays it
 
 // Example melody
 const melody = [
-  { note: "C4", duration: 0.5, startTime: 0 },
-  { note: "E4", duration: 0.5, startTime: 0 },
-  { note: "G4", duration: 0.5, startTime: 0 },
-  { note: "C5", duration: 0.5, startTime: 0.5 },
-  { note: "E5", duration: 0.5, startTime: 0.5 },
-  { note: "G5", duration: 0.5, startTime: 0.5 },
+  { note: "C3", duration: 4, startTime: 0 },
+  { note: "E3", duration: 3, startTime: 1 },
+  { note: "G3", duration: 2, startTime: 2 },
+  // { note: "C5", duration: 0.5, startTime: 0.5 },
+  // { note: "E5", duration: 0.5, startTime: 0.5 },
+  // { note: "G5", duration: 0.5, startTime: 0.5 },
 ];
 
 const playButton = document.getElementById("playButton");
   playButton.addEventListener("click", function () {
-    playMelody(melody).then(() => {
-      console.log("Playback completed.");
-    });
+    // playMelody(melody).then(() => {
+    //   console.log("Playback completed.");
+    // });
+    c3.currentTime = 0;
+    e3.currentTime = 0;
+    g3.currentTime = 0;
+
+    c3.playbackRate = 0.4;
+    e3.playbackRate = 0.4;
+    g3.playbackRate = 0.4;
+
+    c3.play();
+    e3.play();
+    g3.play();
   });
   
 //define the frequencies of the notes
@@ -117,13 +145,13 @@ const noteFrequencies = {
   "Bb3": 233.08,
   "B3": 246.94,
 
-  "C4": 261.63,
-  "C#4": 277.18,
+  "C4": 261.63, 
+  "C#4": 277.18, 
   "Db4": 277.18,
   "D4": 293.66,
   "D#4": 311.13,
   "Eb4": 311.13,
-  "E4": 329.63,
+  "E4": 329.63, 
   "F4": 349.23,
   "F#4": 369.99,
   "Gb4": 369.99,
