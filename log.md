@@ -9,3 +9,9 @@
 * GitHub Co-Pilot was used to help make Blockly blocks in JS 
 * Chat GPT was used to get reference to the use of audio in programming languages
 
+# October 17 2023
+## Changelog - Chris
+### ADSR Envelope 
+* ADSR stands for Attack, Decay, Sustain, and Release.  This allows you to change parts of a synth wave sound, allowing more accurate customization of sounds.
+* The audio context kit uses an oscillator and with very few oscillator types including sine, square, and triangle.  None of these types sound like any instrument, so custom sound is the direction we want to go in.
+* Audio players were brute forced for milestone 1 in order to achieve basic chords.  Mapping of these notes along with each duration and full set of notes will be necessary going forward.
