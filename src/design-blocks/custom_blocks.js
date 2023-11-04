@@ -35,8 +35,8 @@ Blockly.Blocks['measure'] = {
         .setCheck("note")
         .appendField("notes");
     this.setInputsInline(false);
-    this.setPreviousStatement(true, "measure");
-    this.setNextStatement(true, "measure");
+    this.setPreviousStatement(true, "measure", "repeat_measure");
+    this.setNextStatement(true, "measure", "repeat_measure");
     this.setColour(130);
     this.setTooltip("A measure with a specified key signature, time signature, and notes");
     this.setHelpUrl("");
@@ -83,7 +83,7 @@ Blockly.Blocks['note'] = {
 Blockly.Blocks['song'] = {
   init: function() {
     this.appendStatementInput("MEASURES")
-        .setCheck("measure")
+        .setCheck("measure", "repeat_measure")
         .appendField("Song");
     this.appendDummyInput()
         .appendField("tempo")
@@ -101,6 +101,25 @@ Blockly.Blocks['song'] = {
     this.setColour(0);
     this.setTooltip("A song with a specified sequence of measures, tempo, and instrument");
     this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['repeat_measure'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Repeat Measure");
+    this.appendValueInput("NUM_REPEATS")
+      .appendField("Beat:")
+      .appendField(new Blockly.FieldTextInput("1"), "beat");
+    this.appendStatementInput("MEASURE")
+        .setCheck("note")
+        .appendField("Measure to Repeat:");
+    this.setColour(230);
+    this.setTooltip("Repeats a measure a specified number of times.");
+    this.setHelpUrl("");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, "note");
+    this.setNextStatement(true, "note");
   }
 };
 
@@ -147,5 +166,15 @@ Blockly.JavaScript['note'] = function(block) {
     "beat": beat
   };
   var code = JSON.stringify(json, null, 2);
+  return code;
+};
+
+Blockly.JavaScript['repeat_measure'] = function(block) {
+  var repeats = Blockly.JavaScript.valueToCode(block, 'NUM_REPEATS', Blockly.JavaScript.ORDER_ATOMIC);
+  var measure = Blockly.JavaScript.statementToCode(block, 'MEASURE');
+  var code = '';
+  for (var i = 0; i < repeats; i++) {
+    code += measure;
+  }
   return code;
 };
