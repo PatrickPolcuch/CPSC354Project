@@ -1,4 +1,4 @@
-# Language for Music (LFM), Midterm Edition
+# Language for Music (LFM)
 Group: Christopher Isidro, Spencer Lafferty, Justin Lee, Patrick Polcuch
 
 https://patrickpolcuch.github.io/CPSC354Project/design-blocks/
