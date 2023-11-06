@@ -32,8 +32,8 @@ Blockly.Blocks['measure'] = {
           ["12/8", "12/8"]
         ]), "TIME");
     this.appendStatementInput("NOTES")
-        .setCheck("note")
-        .setCheck("rest")
+        .setCheck(["note", "rest"])
+        // .setCheck("rest")
         .appendField("notes");
     this.setInputsInline(false);
     this.setPreviousStatement(true, "measure");
@@ -76,10 +76,10 @@ Blockly.Blocks['note'] = {
     this.setHelpUrl("");
     this.setInputsInline(false);
     // Add socket to note block
-    this.setPreviousStatement(true, "note");
-    this.setNextStatement(true, "note");
-    this.setPreviousStatement(true, "rest");
-    this.setNextStatement(true, "rest");
+    this.setPreviousStatement(true, ["note", "rest"]);
+    // this.setNextStatement(true, "note");
+    // this.setPreviousStatement(true, "rest");
+    this.setNextStatement(true, ["note", "rest"]);
   }
 };
 
@@ -94,10 +94,10 @@ Blockly.Blocks['rest'] = {
       .appendField("Beat:")
       .appendField(new Blockly.FieldTextInput("1.0"), "beat");
     this.setColour(230);
-    this.setPreviousStatement(true, "note");
-    this.setPreviousStatement(true, "rest");
-    this.setNextStatement(true, "note");
-    this.setNextStatement(true, "rest");
+    this.setPreviousStatement(true, ["note", "rest"]);
+    // this.setPreviousStatement(true, ["note", "rest"]);
+    this.setNextStatement(true, ["note", "rest"]);
+    // this.setNextStatement(true, "rest");
   }
 }
 
