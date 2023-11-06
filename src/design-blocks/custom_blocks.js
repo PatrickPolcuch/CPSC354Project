@@ -33,6 +33,7 @@ Blockly.Blocks['measure'] = {
         ]), "TIME");
     this.appendStatementInput("NOTES")
         .setCheck("note")
+        .setCheck("rest")
         .appendField("notes");
     this.setInputsInline(false);
     this.setPreviousStatement(true, "measure");
@@ -77,6 +78,8 @@ Blockly.Blocks['note'] = {
     // Add socket to note block
     this.setPreviousStatement(true, "note");
     this.setNextStatement(true, "note");
+    this.setPreviousStatement(true, "rest");
+    this.setNextStatement(true, "rest");
   }
 };
 
