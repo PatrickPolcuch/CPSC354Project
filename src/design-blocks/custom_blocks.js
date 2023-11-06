@@ -80,6 +80,24 @@ Blockly.Blocks['note'] = {
   }
 };
 
+Blockly.Blocks['rest'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Rest");
+    this.appendDummyInput()
+      .appendField("Duration:")
+      .appendField(new Blockly.FieldTextInput("1.0"), "duration");
+    this.appendDummyInput()
+      .appendField("Beat:")
+      .appendField(new Blockly.FieldTextInput("1.0"), "beat");
+    this.setColour(230);
+    this.setPreviousStatement(true, "note");
+    this.setPreviousStatement(true, "rest");
+    this.setNextStatement(true, "note");
+    this.setNextStatement(true, "rest");
+  }
+}
+
 Blockly.Blocks['song'] = {
   init: function() {
     this.appendStatementInput("MEASURES")
@@ -149,3 +167,15 @@ Blockly.JavaScript['note'] = function(block) {
   var code = JSON.stringify(json, null, 2);
   return code;
 };
+
+Blockly.JavaScript['rest'] = function(block) {
+  var restDuration = block.getFieldValue('duration');
+  var restBeat = block.getFieldValue('beat');
+  var json = {
+    "type": "rest",
+    "restDuration": restDuration,
+    "restBeat": restBeat
+  };
+  var code = JSON.stringify(json, null, 2);
+  return code;
+}
