@@ -32,7 +32,8 @@ Blockly.Blocks['measure'] = {
           ["12/8", "12/8"]
         ]), "TIME");
     this.appendStatementInput("NOTES")
-        .setCheck("note")
+        .setCheck(["note", "rest"])
+        // .setCheck("rest")
         .appendField("notes");
     this.setInputsInline(false);
     this.setPreviousStatement(true, "measure");
@@ -75,10 +76,30 @@ Blockly.Blocks['note'] = {
     this.setHelpUrl("");
     this.setInputsInline(false);
     // Add socket to note block
-    this.setPreviousStatement(true, "note");
-    this.setNextStatement(true, "note");
+    this.setPreviousStatement(true, ["note", "rest"]);
+    // this.setNextStatement(true, "note");
+    // this.setPreviousStatement(true, "rest");
+    this.setNextStatement(true, ["note", "rest"]);
   }
 };
+
+Blockly.Blocks['rest'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Rest");
+    this.appendDummyInput()
+      .appendField("Duration:")
+      .appendField(new Blockly.FieldTextInput("1.0"), "duration");
+    this.appendDummyInput()
+      .appendField("Beat:")
+      .appendField(new Blockly.FieldTextInput("1.0"), "beat");
+    this.setColour(230);
+    this.setPreviousStatement(true, ["note", "rest"]);
+    // this.setPreviousStatement(true, ["note", "rest"]);
+    this.setNextStatement(true, ["note", "rest"]);
+    // this.setNextStatement(true, "rest");
+  }
+}
 
 Blockly.Blocks['song'] = {
   init: function() {
@@ -174,6 +195,19 @@ Blockly.JavaScript['note'] = function(block) {
 };
 
 
+Blockly.JavaScript['rest'] = function(block) {
+  var restDuration = block.getFieldValue('duration');
+  var restBeat = block.getFieldValue('beat');
+  var json = {
+    "type": "rest",
+    "restDuration": restDuration,
+    "restBeat": restBeat
+  };
+  var code = JSON.stringify(json, null, 2);
+  return code;
+}
+
+
 Blockly.JavaScript['dynamic'] = function(block) {
   var marking = block.getFieldValue('MARKING');
   var json = {
@@ -183,3 +217,4 @@ Blockly.JavaScript['dynamic'] = function(block) {
   var code = JSON.stringify(json, null, 2);
   return code;
 };
+
