@@ -125,6 +125,29 @@ Blockly.Blocks['song'] = {
   }
 };
 
+Blockly.Blocks['dynamic'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Dynamic Marking");
+    this.appendDummyInput()
+        .appendField("Marking:")
+        .appendField(new Blockly.FieldDropdown([
+          ["Piano (P)", "piano"],
+          ["Mezzo Piano (MP)", "mezzo_piano"],
+          ["Mezzo Forte (MF)", "mezzo_forte"],
+          ["Forte (F)", "forte"],
+          ["Fortissimo (FF)", "fortissimo"]
+        ]), "MARKING");
+    this.setColour(230);
+    this.setTooltip("Insert a dynamic marking to specify the volume or intensity of a musical passage.");
+    this.setHelpUrl("");
+    this.setInputsInline(false);
+    // Add socket to dynamic marking block
+    this.setPreviousStatement(true, "note");
+    this.setNextStatement(true, "note");
+  }
+};
+
 Blockly.JavaScript['song'] = function(block) {
   var measures = Blockly.JavaScript.statementToCode(block, 'MEASURES');
   var tempo = block.getFieldValue('TEMPO');
@@ -171,6 +194,7 @@ Blockly.JavaScript['note'] = function(block) {
   return code;
 };
 
+
 Blockly.JavaScript['rest'] = function(block) {
   var restDuration = block.getFieldValue('duration');
   var restBeat = block.getFieldValue('beat');
@@ -182,3 +206,15 @@ Blockly.JavaScript['rest'] = function(block) {
   var code = JSON.stringify(json, null, 2);
   return code;
 }
+
+
+Blockly.JavaScript['dynamic'] = function(block) {
+  var marking = block.getFieldValue('MARKING');
+  var json = {
+    "type": "dynamic",
+    "marking": marking
+  };
+  var code = JSON.stringify(json, null, 2);
+  return code;
+};
+
