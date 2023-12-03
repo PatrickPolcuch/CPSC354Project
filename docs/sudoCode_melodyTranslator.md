@@ -47,7 +47,7 @@ Note{ //general format for a note block
 
 melody SongToMelody(Song){
     new melody m; // set up the melody that we are going to return
-    int beat_Step = Song->tempo / 60.0; //This gives us how many seconds is in each beat
+    double beat_Step = Song->tempo / 60.0; //This gives us how many seconds is in each beat
 
     int beatCount = 0;
     for each measure in Song->Measures{ //itterates through each measure in the song
@@ -57,7 +57,7 @@ melody SongToMelody(Song){
         for each note in measure->Notes{
             new melodyNote mNote;
 
-            mNote->note = note_and_key_to_melodyNote_format(note, key_signature);
+            mNote->note = note_and_key_to_melodyNote_format(note, keySig);
             mNote->duration = note->Duration * beat_Step; //gives the duration of the note in seconds
             mNote->startTime = (beatCount + note->Beat) * beat_Step; //gives  the start time in seconds from the beginning of the piece
 
