@@ -15,3 +15,8 @@
 * ADSR stands for Attack, Decay, Sustain, and Release.  This allows you to change parts of a synth wave sound, allowing more accurate customization of sounds.
 * The audio context kit uses an oscillator and with very few oscillator types including sine, square, and triangle.  None of these types sound like any instrument, so custom sound is the direction we want to go in.
 * Audio players were brute forced for milestone 1 in order to achieve basic chords.  Mapping of these notes along with each duration and full set of notes will be necessary going forward.
+
+# December 2 2023
+## Patrick
+* Added comments and enhanced readibility of custom_blocks.js
+* Created sudoCode_melodyTranslator.md
