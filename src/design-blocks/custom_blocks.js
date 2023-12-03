@@ -1,4 +1,34 @@
-Blockly.Blocks['measure'] = {
+/*
+ *
+ *  Functions for Creating blocks with Blockly
+ * 
+ */
+
+Blockly.Blocks['song'] = { // Creates block "song", with fields: tempo, instrument. And input being measure blocks.
+  init: function() {
+    this.appendStatementInput("MEASURES")
+        .setCheck("measure")
+        .appendField("Song");
+    this.appendDummyInput()
+        .appendField("tempo")
+        .appendField(new Blockly.FieldNumber(120, 1, 300), "TEMPO");
+    this.appendDummyInput()
+        .appendField("instrument")
+        .appendField(new Blockly.FieldDropdown([
+          ["piano", "piano"],
+          ["guitar", "guitar"],
+          ["violin", "violin"],
+          ["trumpet", "trumpet"],
+          ["drums", "drums"]
+        ]), "INSTRUMENT");
+    this.setInputsInline(false);
+    this.setColour(0);
+    this.setTooltip("A song with a specified sequence of measures, tempo, and instrument");
+    this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['measure'] = { // Creates block "Measure", with fields: key signature, time signature. And input being note blocks or rest blocks
   init: function() {
     this.appendDummyInput()
         .appendField("Measure");
@@ -33,7 +63,6 @@ Blockly.Blocks['measure'] = {
         ]), "TIME");
     this.appendStatementInput("NOTES")
         .setCheck(["note", "rest"])
-        // .setCheck("rest")
         .appendField("notes");
     this.setInputsInline(false);
     this.setPreviousStatement(true, "measure");
@@ -44,27 +73,36 @@ Blockly.Blocks['measure'] = {
   }
 };
 
-function getNoteCode(note) {
-  var pitch = note.getFieldValue('NOTE');
-  var accidental = note.getFieldValue('ACCIDENTAL');
-  var duration = note.getFieldValue('DURATION');
-  var code = pitch + accidental + duration;
-  return code;
-}
-
-Blockly.Blocks['note'] = {
+Blockly.Blocks['note'] = { // Creates block "Note", with fields: Note Name, Octave, Accidental, Duration, and Beat. Does not accept other blocks as input
   init: function() {
     this.appendDummyInput()
         .appendField("Note");
     this.appendDummyInput()
         .appendField("Note Name:")
-        .appendField(new Blockly.FieldDropdown([["A", "A"], ["B", "B"], ["C", "C"], ["D", "D"], ["E", "E"], ["F", "F"], ["G", "G"]]), "noteName");
+        .appendField(new Blockly.FieldDropdown([["A", "A"],
+                                                ["B", "B"], 
+                                                ["C", "C"], 
+                                                ["D", "D"], 
+                                                ["E", "E"], 
+                                                ["F", "F"], 
+                                                ["G", "G"]]), "noteName");
     this.appendDummyInput()
         .appendField("Octave:")
-        .appendField(new Blockly.FieldDropdown([["0", "0"], ["1", "1"], ["2", "2"], ["3", "3"], ["4", "4"], ["5", "5"], ["6", "6"], ["7", "7"], ["8", "8"]]), "octave");
+        .appendField(new Blockly.FieldDropdown([["0", "0"], 
+                                                ["1", "1"], 
+                                                ["2", "2"], 
+                                                ["3", "3"], 
+                                                ["4", "4"], 
+                                                ["5", "5"], 
+                                                ["6", "6"], 
+                                                ["7", "7"], 
+                                                ["8", "8"]]), "octave");
     this.appendDummyInput()
         .appendField("Accidental:")
-        .appendField(new Blockly.FieldDropdown([["(Blank)", ""], ["Natural", "natural"], ["Sharp", "sharp"], ["Flat", "flat"]]), "accidental");
+        .appendField(new Blockly.FieldDropdown([["(Blank)", ""], 
+                                                ["Natural", "natural"], 
+                                                ["Sharp", "sharp"], 
+                                                ["Flat", "flat"]]), "accidental");
     this.appendDummyInput()
         .appendField("Duration:")
         .appendField(new Blockly.FieldTextInput("1.0"), "duration");
@@ -83,7 +121,7 @@ Blockly.Blocks['note'] = {
   }
 };
 
-Blockly.Blocks['rest'] = {
+Blockly.Blocks['rest'] = { // Creates block "rest", with fields: Duration, and Beat. Does not accept other blocks as input
   init: function() {
     this.appendDummyInput()
         .appendField("Rest");
@@ -101,31 +139,7 @@ Blockly.Blocks['rest'] = {
   }
 }
 
-Blockly.Blocks['song'] = {
-  init: function() {
-    this.appendStatementInput("MEASURES")
-        .setCheck("measure")
-        .appendField("Song");
-    this.appendDummyInput()
-        .appendField("tempo")
-        .appendField(new Blockly.FieldNumber(120, 1, 300), "TEMPO");
-    this.appendDummyInput()
-        .appendField("instrument")
-        .appendField(new Blockly.FieldDropdown([
-          ["piano", "piano"],
-          ["guitar", "guitar"],
-          ["violin", "violin"],
-          ["trumpet", "trumpet"],
-          ["drums", "drums"]
-        ]), "INSTRUMENT");
-    this.setInputsInline(false);
-    this.setColour(0);
-    this.setTooltip("A song with a specified sequence of measures, tempo, and instrument");
-    this.setHelpUrl("");
-  }
-};
-
-Blockly.Blocks['dynamic'] = {
+Blockly.Blocks['dynamic'] = { // Creates block "dynamic", with fields: Marking. 
   init: function() {
     this.appendDummyInput()
         .appendField("Dynamic Marking");
@@ -148,8 +162,15 @@ Blockly.Blocks['dynamic'] = {
   }
 };
 
-Blockly.JavaScript['song'] = function(block) {
-  var measures = Blockly.JavaScript.statementToCode(block, 'MEASURES');
+
+/*
+ *
+ *  Functions for Generating JavaScript code from blocks
+ * 
+ */
+
+Blockly.JavaScript['song'] = function(block) { // Generates JavaScript code for a song block
+  var measures = Blockly.JavaScript.statementToCode(block, 'MEASURES'); //Gets the code for the measures nested in the song block
   var tempo = block.getFieldValue('TEMPO');
   var instrument = block.getFieldValue('INSTRUMENT');
   var json = {
@@ -162,7 +183,7 @@ Blockly.JavaScript['song'] = function(block) {
   return code;
 };
 
-Blockly.JavaScript['measure'] = function(block) {
+Blockly.JavaScript['measure'] = function(block) {// Generates JavaScript code for a measure block
   var key = block.getFieldValue('KEY');
   var time = block.getFieldValue('TIME');
   var notes = Blockly.JavaScript.statementToCode(block, 'NOTES');
@@ -176,7 +197,7 @@ Blockly.JavaScript['measure'] = function(block) {
   return code;
 };
 
-Blockly.JavaScript['note'] = function(block) {
+Blockly.JavaScript['note'] = function(block) {// Generates JavaScript code for a note block
   var noteName = block.getFieldValue('noteName');
   var octave = block.getFieldValue('octave');
   var accidental = block.getFieldValue('accidental');
@@ -194,8 +215,7 @@ Blockly.JavaScript['note'] = function(block) {
   return code;
 };
 
-
-Blockly.JavaScript['rest'] = function(block) {
+Blockly.JavaScript['rest'] = function(block) {// Generates JavaScript code for a rest block
   var restDuration = block.getFieldValue('duration');
   var restBeat = block.getFieldValue('beat');
   var json = {
@@ -207,8 +227,7 @@ Blockly.JavaScript['rest'] = function(block) {
   return code;
 }
 
-
-Blockly.JavaScript['dynamic'] = function(block) {
+Blockly.JavaScript['dynamic'] = function(block) {// Generates JavaScript code for a dynamic block
   var marking = block.getFieldValue('MARKING');
   var json = {
     "type": "dynamic",
@@ -218,3 +237,17 @@ Blockly.JavaScript['dynamic'] = function(block) {
   return code;
 };
 
+
+/*
+ *
+ *  Helper functions
+ * 
+ */
+
+function getNoteCode(note) { // Not sure how this works
+  var pitch = note.getFieldValue('NOTE');
+  var accidental = note.getFieldValue('ACCIDENTAL');
+  var duration = note.getFieldValue('DURATION');
+  var code = pitch + accidental + duration;
+  return code;
+}
