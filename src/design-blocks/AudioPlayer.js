@@ -29,18 +29,6 @@ function playMelody(melody) {
   });
 }
 
-  const promises = melody.map((noteInfo) => {//ensures the notes play at the correct time
-    return new Promise((resolve) => {
-      playNote(noteInfo.note, noteInfo.duration, noteInfo.startTime);
-      setTimeout(() => resolve(), noteInfo.duration * 1000);
-    });
-  });
-
-  return Promise.all(promises).then(() => {
-    console.log("Melody finished.");
-  });
-}
-
 // Example melody
 const ExampleMelody = [
   { note: "C4", duration: 0.5, startTime: 0 },
@@ -51,12 +39,12 @@ const ExampleMelody = [
   { note: "G5", duration: 0.5, startTime: 0.5 },
 ];
 
-const playButton = document.getElementById("playButton");
-  playButton.addEventListener("click", function () {
-    playMelody(melody).then(() => {
-      console.log("Playback completed.");
-    });
-  });
+// const playButton = document.getElementById("playButton");
+//   playButton.addEventListener("click", function () {
+//     playMelody(melody).then(() => {
+//       console.log("Playback completed.");
+//     });
+//   });
   
 //define the frequencies of the notes
 //we might want to include Fb, E#, B#, and Cb in the future just to be more exhaustive

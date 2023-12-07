@@ -56,9 +56,8 @@
         document.getElementById("playButton").addEventListener("click", function() {
         var code = document.getElementById("codeDiv").textContent;
         var obj = JSON.parse(code); // Parse the JSON string into a JavaScript object
-        var translatedObj = translateObject(obj); // Call the function from translator.js
-        console.log(translatedObj);
-        playMelody(translatedObj);
+        var melody1 = objectToMelody(obj); // Call the function from testAudio.js
+        playMelody(melody1);
         });
 
         document.getElementById("translateButton").addEventListener("click", function() {
