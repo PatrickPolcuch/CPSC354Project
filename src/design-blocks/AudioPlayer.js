@@ -30,14 +30,14 @@ function playMelody(melody) {
 }
 
 // Example melody
-const ExampleMelody = [
-  { note: "C4", duration: 0.5, startTime: 0 },
-  { note: "E4", duration: 0.5, startTime: 0 },
-  { note: "G4", duration: 0.5, startTime: 0 },
-  { note: "C5", duration: 0.5, startTime: 0.5 },
-  { note: "E5", duration: 0.5, startTime: 0.5 },
-  { note: "G5", duration: 0.5, startTime: 0.5 },
-];
+// const ExampleMelody = [
+//   { note: "C4", duration: 0.5, startTime: 0 },
+//   { note: "E4", duration: 0.5, startTime: 0 },
+//   { note: "G4", duration: 0.5, startTime: 0 },
+//   { note: "C5", duration: 0.5, startTime: 0.5 },
+//   { note: "E5", duration: 0.5, startTime: 0.5 },
+//   { note: "G5", duration: 0.5, startTime: 0.5 },
+// ];
 
 // const playButton = document.getElementById("playButton");
 //   playButton.addEventListener("click", function () {

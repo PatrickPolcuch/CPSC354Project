@@ -125,20 +125,22 @@ function translateSong(songObj) {
 }
 
 function translateMeasure(measureObj) {
-    // Convert the notes object into a Note instance
-    var note = new Note(
-        measureObj.notes.noteName,
-        measureObj.notes.octave,
-        measureObj.notes.accidental,
-        measureObj.notes.duration,
-        measureObj.notes.beat
-    );
+    // Convert each note object into a Note instance
+    var notes = measureObj.notes.map(function(noteObj) {
+        return new Note(
+            noteObj.noteName,
+            noteObj.octave,
+            noteObj.accidental,
+            noteObj.duration,
+            noteObj.beat
+        );
+    });
 
     // Convert the measure object into a Measure instance
     var measure = new Measure(
         measureObj.key,
         measureObj.time,
-        [note] // The notes property is an array of Note instances
+        notes // The notes property is an array of Note instances
     );
 
     return measure;
