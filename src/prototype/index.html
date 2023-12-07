@@ -5,6 +5,7 @@
     <script src="https://unpkg.com/blockly/blockly.min.js"></script>
     <script src="custom_blocks.js"></script>
     <script src="AudioPlayer.js"></script>
+    <script src="testAudio.js"></script>
     <link rel="stylesheet" type="text/css" href="styles.css">
   </head>
   <body>
@@ -19,6 +20,7 @@
     </div>
     <div class="row button-row">
         <button onclick="generateCode()">Generate JavaScript</button>
+        <button id="translateButton">Translate</button>
         <button id="saveButton">Save to File</button>
         <button id="playButton">Play Melody</button>
         <input type="file" id="loadInput" style="display: none;" onchange="loadBlocksFile(event)">
@@ -54,6 +56,16 @@
         document.getElementById("playButton").addEventListener("click", function() {
         playMelody(melody);
         });
+
+        document.getElementById("translateButton").addEventListener("click", function() {
+        var code = document.getElementById("codeDiv").textContent;
+        var obj = JSON.parse(code); // Parse the JSON string into a JavaScript object
+        var translatedObj = translateObject(obj); // Call the function from testAudio.js
+        console.log(translatedObj);
+        });
+        // You can then use translatedObj as needed
+        // For example, you might want to display it in the outputDiv
+        //document.getElementById("outputDiv").textContent = JSON.stringify(translatedObj, null, 2);
     </script>
   </body>
 </html>

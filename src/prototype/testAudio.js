@@ -11,9 +11,9 @@ function Melody() {
 }
 
 // Example usage:
-let note1EX = new MelodyNote("C4", 0.5, 0);
-let melody = new Melody();
-melody.Notes.push(note1);
+// let note1EX = new MelodyNote("C4", 0.5, 0);
+// let melody = new Melody();
+// melody.Notes.push(note1);
 
 // Define the Song object
 function Song(tempo, instrument, measures) {
@@ -39,9 +39,9 @@ function Note(note_name, octave, Accidental, Duration, Beat) {
 }
 
 // Example usage:
-let note1 = new Note("C", 4, "", 0.5, 0);
-let measure1 = new Measure("C", "4/4", [note1]);
-let song = new Song(120, "piano", [measure1]);
+// let note1 = new Note("C", 4, "", 0.5, 0);
+// let measure1 = new Measure("C", "4/4", [note1]);
+// let song = new Song(120, "piano", [measure1]);
 
 // This function converts a Song object to a Melody object
 function SongToMelody(Song){
@@ -134,8 +134,8 @@ function translateMeasure(measureObj) {
 }
 
 // Example usage:
-var songObj = { "type": "song", "tempo": 120, "instrument": "piano", "measures": { "type": "measure", "key": "C", "time": "4/4", "notes": { "type": "note", "noteName": "A", "octave": "0", "accidental": "", "duration": "1.0", "beat": "1.0" } } };
-var song = translateObject(songObj);
+// var songObj = { "type": "song", "tempo": 120, "instrument": "piano", "measures": { "type": "measure", "key": "C", "time": "4/4", "notes": { "type": "note", "noteName": "A", "octave": "0", "accidental": "", "duration": "1.0", "beat": "1.0" } } };
+// var song2 = translateObject(songObj);
 
 // This function applies the correct key signature and accidental to the note N, and returns the note in a the format that melodyNote accepts.
 function note_and_key_to_melodyNote_format(N, keySignature){
@@ -212,14 +212,14 @@ const keys = {
     "F":{   "B":"b"}
 };
 
-// Test case 1: Note with accidental
-console.log(note_and_key_to_melodyNote_format({note_name: "C", Accidental: "#", octave: "4"}, "C")); // Expected output: "C#4"
+// // Test case 1: Note with accidental
+// console.log(note_and_key_to_melodyNote_format({note_name: "C", Accidental: "#", octave: "4"}, "C")); // Expected output: "C#4"
 
-// Test case 2: Note without accidental in key with no accidentals
-console.log(note_and_key_to_melodyNote_format({note_name: "C", Accidental: "(Blank)", octave: "4"}, "C")); // Expected output: "C4"
+// // Test case 2: Note without accidental in key with no accidentals
+// console.log(note_and_key_to_melodyNote_format({note_name: "C", Accidental: "(Blank)", octave: "4"}, "C")); // Expected output: "C4"
 
-// Test case 3: Note without accidental in key with accidentals
-console.log(note_and_key_to_melodyNote_format({note_name: "F", Accidental: "(Blank)", octave: "4"}, "G")); // Expected output: "F#4"
+// // Test case 3: Note without accidental in key with accidentals
+// console.log(note_and_key_to_melodyNote_format({note_name: "F", Accidental: "(Blank)", octave: "4"}, "G")); // Expected output: "F#4"
 
-// Test case 4: Note without accidental in key with accidentals, but the note is not affected by the key
-console.log(note_and_key_to_melodyNote_format({note_name: "E", Accidental: "(Blank)", octave: "4"}, "G")); // Expected output: "E4"
+// // Test case 4: Note without accidental in key with accidentals, but the note is not affected by the key
+// console.log(note_and_key_to_melodyNote_format({note_name: "E", Accidental: "(Blank)", octave: "4"}, "G")); // Expected output: "E4"
