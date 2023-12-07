@@ -111,14 +111,16 @@ function translateObject(obj) {
 }
 
 function translateSong(songObj) {
-    // Convert the measures object into a Measure instance
-    var measure = translateMeasure(songObj.measures);
+    // Convert each measure object into a Measure instance
+    var measures = songObj.measures.map(function(measureObj) {
+        return translateMeasure(measureObj);
+    });
 
     // Convert the song object into a Song instance
     var song = new Song(
         songObj.tempo,
         songObj.instrument,
-        [measure] // The measures property is an array of Measure instances
+        measures // The measures property is an array of Measure instances
     );
 
     return song;

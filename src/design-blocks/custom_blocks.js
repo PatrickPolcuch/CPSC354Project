@@ -173,11 +173,15 @@ Blockly.JavaScript['song'] = function(block) { // Generates JavaScript code for 
   var measures = Blockly.JavaScript.statementToCode(block, 'MEASURES'); //Gets the code for the measures nested in the song block
   var tempo = block.getFieldValue('TEMPO');
   var instrument = block.getFieldValue('INSTRUMENT');
+  measures = measures.trim(); // Remove whitespace
+  if (measures.endsWith(',')) {
+      measures = measures.slice(0, -1); // Remove the trailing comma
+  }
   var json = {
     "type": "song",
     "tempo": tempo,
     "instrument": instrument,
-    "measures": JSON.parse(measures)
+    "measures": JSON.parse('[' + measures + ']') // Wrap the measures string in square brackets (to make it an array of measures)
   };
   var code = JSON.stringify(json, null, 2);
   return code;
@@ -197,7 +201,7 @@ Blockly.JavaScript['measure'] = function(block) {
       "time": time,
       "notes": JSON.parse('[' + notes + ']') // Wrap the notes string in square brackets
   };
-  var code = JSON.stringify(json, null, 2);
+  var code = JSON.stringify(json, null, 2) + ',';
   return code;
 };
 
