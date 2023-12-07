@@ -89,6 +89,17 @@ function beatsInMeasure(m){
     }
 }
 
+function objectToMelody(obj) {
+    var translatedObj = translateObject(obj);
+
+    if (translatedObj instanceof Song) {
+        // If the translated object is a Song, convert it to a melody
+        return SongToMelody(translatedObj);
+    } else {
+        throw new Error("Unknown object type: " + typeof translatedObj);
+    }
+}
+
 function translateObject(obj) {
     if (obj.type === "song") {
         return translateSong(obj);

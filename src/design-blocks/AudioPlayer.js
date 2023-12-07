@@ -10,8 +10,24 @@ function playNote(note, durationInSeconds, startTime) {
   oscillator.stop(audioContext.currentTime + startTime + durationInSeconds);
 }
 
-function playMelody(melody) {//accepts a melody and plays it
+function playMelody(melody) {
   const startTime = audioContext.currentTime;
+
+  const promises = melody.Notes.map((noteInfo) => {
+    return new Promise((resolve) => {
+      playNote(
+        noteInfo.note,
+        noteInfo.duration,
+        noteInfo.startTime
+      );
+      setTimeout(() => resolve(), noteInfo.duration * 1000);
+    });
+  });
+
+  return Promise.all(promises).then(() => {
+    console.log("Melody finished.");
+  });
+}
 
   const promises = melody.map((noteInfo) => {//ensures the notes play at the correct time
     return new Promise((resolve) => {
