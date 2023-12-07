@@ -46,7 +46,7 @@ function Note(note_name, octave, Accidental, Duration, Beat) {
 // This function converts a Song object to a Melody object
 function SongToMelody(Song){
     let m = new Melody(); // set up the melody that we are going to return
-    let beat_Step = Song.tempo / 60.0; //This gives us how many seconds is in each beat
+    let beat_Step = 60.0 / Song.tempo; //This gives us how many seconds is in each beat
 
     let beatCount = 0;
     for (let measure of Song.Measures){ //iterates through each measure in the song
