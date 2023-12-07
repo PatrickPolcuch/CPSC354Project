@@ -153,7 +153,17 @@ function translateMeasure(measureObj) {
 // This function applies the correct key signature and accidental to the note N, and returns the note in a the format that melodyNote accepts.
 function note_and_key_to_melodyNote_format(N, keySignature){
     if(N.Accidental !== "(Blank)"){ //if there is an accidental, that supersedes whatever the key signature says, and makes it simpler
-      return N.note_name + N.Accidental + N.octave; //concatenates and returns the strings for note_name, Accidental, and octave
+      let acc = "";
+      if(N.Accidental == "sharp"){
+        acc = "#";
+      }
+      if(N.Accidental == "flat"){
+        acc = "b";
+      }
+      if(N.Accidental == "natural"){
+        acc = "";
+      }
+        return N.note_name + acc + N.octave; //concatenates and returns the strings for note_name, Accidental, and octave
     }
     // if the accidental is blank, we need to evaluate based on key signature
   
