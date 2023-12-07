@@ -63,7 +63,7 @@ function SongToMelody(Song){
             m.Notes.push(mNote); // adds our melodyNote to the array of notes in our melody object
         }
 
-        beatCount += beatsInMeasure(measure); //adds the number of beats in the measure to the beatCount so we know when each measure starts
+        beatCount += beat_Step * beatsInMeasure(measure); //adds the number of beats in the measure to the beatCount so we know when each measure starts
     }
 
     return m; //returns our melody
