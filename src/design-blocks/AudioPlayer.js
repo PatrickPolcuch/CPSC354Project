@@ -1,9 +1,14 @@
+/*
+AudioPlayer 
+
+*/
+
 //Create Audio context
 const audioContext = new (window.AudioContext || window.webkitAudioContext)();
 
 function playNote(note, durationInSeconds, startTime) {
   const oscillator = audioContext.createOscillator();
-  oscillator.type = "sine";//we will need to make this to sound like the instrument of our choice
+  oscillator.type = "sine"; //we will need to make this to sound like the instrument of our choice
   oscillator.frequency.setValueAtTime(noteFrequencies[note], audioContext.currentTime + startTime);
   oscillator.connect(audioContext.destination);
   oscillator.start(audioContext.currentTime + startTime);
@@ -46,8 +51,8 @@ function playMelody(melody) {
 //     });
 //   });
   
-//define the frequencies of the notes
-//we might want to include Fb, E#, B#, and Cb in the future just to be more exhaustive
+// Definition of all noteFrequencies. Drastically increases easy of development and code readability. 
+
 const noteFrequencies = {
   "C0": 16.35,
   "C#0": 17.32,

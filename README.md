@@ -10,6 +10,19 @@ Project Description:
 Our group aims to make a language that specializes in music creation and analysis. We intend to use the placement of blocks to represent sound in order to make music creation more accessible to those not musically trained. This programming language will assist in writing sheet music, and creating music compositions.  A sound library will be utilized to allow the programmer to switch between instruments while adding their respective notes to the sheet.  Some smaller ideas the group has for this language are having booleans that analyze your current music and determine whether some notes harmonize or clash.  On top of this you will be able to set time signatures so the language can determine where to place your notes.
 
 
+# Usage Instructions
+Language for Music is very simple to use through the Blockly-based web application. It works identically to other blockly applications: drag the blocks onto the design area and fill the parameters as you wish. Blocks attach to and fit inside one another, depending on the type of block. The program should keep the user from building a composiition that is not musically possible. Once you're done with the composition, simply press play and listen to what you've created. 
+
+
+# Moving forward
+LFM is still early on in development, and there is much more functionality to be implemented as well as existent functionality to be improved. 
+- The ability to choose instruments to replace the current default, "buzzing" sound. 
+- A way to convert compositions into other music making software such as GarageBand and F1 Studio. 
+- Easy traversal of the composition while listening. In other words, when you listen to the blocks, you can skip ahead rather than having to listen from the beginning.
+- A metronome to help users who are less experienced in music get a grasp of time signatures. 
+
+
+
 # Site
 To try LFM, simply go to this site/
 https://patrickpolcuch.github.io/CPSC354Project/src/design-blocks/

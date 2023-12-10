@@ -252,7 +252,7 @@ Blockly.JavaScript['dynamic'] = function(block) {// Generates JavaScript code fo
  * 
  */
 
-function getNoteCode(note) { // Not sure how this works
+function getNoteCode(note) { 
   var pitch = note.getFieldValue('NOTE');
   var accidental = note.getFieldValue('ACCIDENTAL');
   var duration = note.getFieldValue('DURATION');
