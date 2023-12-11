@@ -17,8 +17,15 @@ https://patrickpolcuch.github.io/CPSC354Project/src/design-blocks/
 Drag and drop blocks to create music. Its that simple!
 
 
+# Videos
+Project Introduction: 
+Technical Introduction: https://youtu.be/_0UMbIdliVQ
+
+
 # Usage Instructions
 Language for Music is very simple to use through the Blockly-based web application. It works identically to other blockly applications: drag the blocks onto the design area and fill the parameters as you wish. Blocks attach to and fit inside one another, depending on the type of block. The program should keep the user from building a composiition that is not musically possible. Once you're done with the composition, simply press play and listen to what you've created.  
+
+In order to add your own blocks, you must add it to index.html, and both the functionality and the json generation must be added to custom_blocks.js. 
 
 
 # Regrets
