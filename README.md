@@ -18,7 +18,7 @@ Drag and drop blocks to create music. Its that simple!
 
 
 # Videos
-Project Introduction: 
+Project Introduction: https://www.youtube.com/watch?v=TUVzcDXWZWc
 Technical Introduction: https://youtu.be/_0UMbIdliVQ
 
 
