@@ -20,3 +20,30 @@
 ## Patrick
 * Added comments and enhanced readibility of custom_blocks.js
 * Created sudoCode_melodyTranslator.md
+
+# December 6 2023
+## Patrick
+* General testing
+* Fixed issue with incorrect tempo
+* Fixed issue with accidentals in playback
+* Fixed issue where key signature did not evaluate
+## Justin
+* Fixes to translation
+* Changed name of testAudio to translator
+* Fixes in AudioPlayer, custom_blocks, translator, and index
+
+# December 7 2023
+## Patrick
+* Fixed bugs in translator.js
+## Justin
+* bug fixes
+
+# December 10 2023
+## Patrick
+* Fixed link to repo in index.html
+## Justin
+* added default demo
+## Spencer
+* Added video demonstration to README
+* Added Regrets to README
+* General Documentation updates
