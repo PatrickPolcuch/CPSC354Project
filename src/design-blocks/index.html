@@ -68,7 +68,107 @@
         });
         // You can then use translatedObj as needed
         // For example, you might want to display it in the outputDiv
-        //document.getElementById("outputDiv").textContent = JSON.stringify(translatedObj, null, 2);
+        
+        var defaultBlocks = `
+            <xml xmlns="http://www.w3.org/1999/xhtml">
+                <block type="song" x="60" y="0">
+                    <statement name="MEASURES">
+                        <block type="measure">
+                            <statement name="NOTES">
+                                <block type="note">
+                                    <field name="noteName">G</field>
+                                    <field name="octave">4</field>
+                                    <field name="accidental"></field>
+                                    <field name="duration">1</field>
+                                    <field name="beat">1</field>
+                                    <next>
+                                <block type="note">
+                                    <field name="noteName">D</field>
+                                    <field name="octave">5</field>
+                                    <field name="accidental"></field>
+                                    <field name="duration">1</field>
+                                    <field name="beat">2</field>
+                                    <next>
+                                <block type="note">
+                                    <field name="noteName">B</field>
+                                    <field name="octave">4</field>
+                                    <field name="accidental">flat</field>
+                                    <field name="duration">1.5</field>
+                                    <field name="beat">3</field>
+                                    <next>
+                                <block type="note">
+                                    <field name="noteName">A</field>
+                                    <field name="octave">4</field>
+                                    <field name="accidental"></field>
+                                    <field name="duration">0.4</field>
+                                    <field name="beat">4.5</field>
+                                    <next>
+                                <block type="note">
+                                    <field name="noteName">G</field>
+                                    <field name="octave">4</field>
+                                    <field name="accidental"></field>
+                                    <field name="duration">0.4</field>
+                                    <field name="beat">5</field>
+                                    <next>
+                                <block type="note">
+                                    <field name="noteName">B</field>
+                                    <field name="octave">4</field>
+                                    <field name="accidental">flat</field>
+                                    <field name="duration">0.4</field>
+                                    <field name="beat">5.5</field>
+                                    <next>
+                                <block type="note">
+                                    <field name="noteName">A</field>
+                                    <field name="octave">4</field>
+                                    <field name="accidental"></field>
+                                    <field name="duration">0.4</field>
+                                    <field name="beat">6</field>
+                                    <next>
+                                <block type="note">
+                                    <field name="noteName">G</field>
+                                    <field name="octave">4</field>
+                                    <field name="accidental"></field>
+                                    <field name="duration">0.4</field>
+                                    <field name="beat">6.5</field>
+                                    <next>
+                                <block type="note">
+                                    <field name="noteName">F</field>
+                                    <field name="octave">4</field>
+                                    <field name="accidental">sharp</field>
+                                    <field name="duration">0.4</field>
+                                    <field name="beat">7</field>
+                                    <next>
+                                <block type="note">
+                                    <field name="noteName">A</field>
+                                    <field name="octave">4</field>
+                                    <field name="accidental"></field>
+                                    <field name="duration">0.4</field>
+                                    <field name="beat">7.5</field>
+                                    <next>
+                                <block type="note">
+                                    <field name="noteName">D</field>
+                                    <field name="octave">4</field>
+                                    <field name="accidental"></field>
+                                    <field name="duration">1</field>
+                                    <field name="beat">8</field>
+                                    <next>        
+                                </block>
+                                    </next>
+                                    </block>
+                                    </next>
+                                </block>
+                            </statement>
+                        </block>
+                    </statement>
+                </block>
+            </xml>
+        `;
+
+        window.addEventListener('load', function() {
+            workspace.clear();
+            var xml = Blockly.utils.xml.textToDom(defaultBlocks);
+            Blockly.Xml.domToWorkspace(xml, workspace);
+    });
     </script>
   </body>
 </html>
